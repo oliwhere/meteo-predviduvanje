@@ -27,7 +27,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Gets the login page.
 fastify.get("/", async (request, reply) => {
-  reply.view("index.pug");
+  await reply.view("index.pug");
 });
 
 // Authenticates login details.
@@ -46,9 +46,9 @@ fastify.post("/", async (request, reply) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((userCreds) => {
-        reply.send("Success!");
+        reply.send(`Successfully logged in`);
       })
-      .catch(function (error) {
+      .catch((error) => {
         // Handle errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -60,6 +60,11 @@ fastify.post("/", async (request, reply) => {
         reply.send(error);
       });
   }
+  await reply;
+});
+
+fastify.get("/weather", async (request, reply) => {
+  await reply.send("hello from /weather!");
 });
 
 // Run the server!

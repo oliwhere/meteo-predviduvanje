@@ -1,3 +1,4 @@
+// Add required modules.
 require("dotenv").config();
 const fastify = require("fastify")({ logger: true });
 
@@ -12,6 +13,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.messagingSenderId,
   appId: process.env.appId,
 };
+// ------------------------------------------------------
 
 // Register middleware.
 fastify.register(require("fastify-sensible"));
@@ -21,10 +23,13 @@ fastify.register(require("point-of-view"), {
     pug: require("pug"),
   },
 });
+fastify.register(require("fastify-cors"));
+fastify.register(require("fastify-helmet"), { contentSecurityPolicy: false });
+// ------------------------------------------------------
 
 // Initialize Firebase.
 firebase.initializeApp(firebaseConfig);
-
+// ------------------------------------------------------
 // Gets the login page.
 fastify.get("/", async (request, reply) => {
   await reply.view("index.pug");
@@ -32,8 +37,7 @@ fastify.get("/", async (request, reply) => {
 
 // Authenticates login details.
 fastify.post("/", async (request, reply) => {
-  const email = await request.body.email;
-  const password = await request.body.password;
+  const { email, password } = await request.body;
 
   if (firebase.auth().currentUser) {
     firebase.auth().signOut();
@@ -62,11 +66,11 @@ fastify.post("/", async (request, reply) => {
   }
   await reply;
 });
-
+// -----------------------------------------------------------
 fastify.get("/weather", async (request, reply) => {
   await reply.send("hello from /weather!");
 });
-
+// -----------------------------------------------------------
 // Run the server!
 const start = async () => {
   try {

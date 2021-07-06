@@ -1,0 +1,22 @@
+{
+  "name": "meteo-predviduvanje",
+  "version": "1.0.0",
+  "description": "veb aplikacija za predviduvanje na vremeto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oliwhere",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.18.1",
+    "fastify-formbody": "^5.0.0",
+    "fastify-multipart": "^4.0.7",
+    "fastify-sensible": "^3.1.1",
+    "firebase": "^8.7.0",
+    "nodemon": "^2.0.9",
+    "point-of-view": "^4.15.0",
+    "pug": "^3.0.2"
+  }
+}

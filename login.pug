@@ -1,0 +1,107 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Register - Free Bulma template
+  link(href='https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&display=swap' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/15181efa86.js' crossorigin='anonymous')
+  link(rel='stylesheet' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css')
+section.container
+  .columns.is-multiline
+    .column.is-8.is-offset-2.register
+      .columns
+        .column.left
+          h1.title.is-1 Super Cool Website
+          h2.subtitle.colored.is-4 Lorem ipsum dolor sit amet.
+          p
+            | Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            | Corporis ex deleniti aliquam tempora libero excepturi vero
+            | soluta odio optio sed.
+        .column.right.has-text-centered
+          h1.title.is-4 Login
+          p.description
+            | Lorem ipsum dolor, sit amet consectetur adipisicing elit
+          form(method="post")
+            .field
+              .control
+                input.input.is-medium(type='email' placeholder='Email' name="email" required)
+            .field
+              .control
+                input.input.is-medium(type='password' placeholder='Password' name="password" required)
+            button.button.is-block.is-primary.is-fullwidth.is-medium
+              | Submit
+            br
+            small
+              em Lorem ipsum dolor sit amet consectetur.
+    .column.is-8.is-offset-2
+      br
+      nav.level
+        small.level-item(style='color: var(--textLight)')
+          | &copy; Super Cool Website. All Rights Reserved.
+style.
+  :root {
+  --brandColor: hsl(166, 67%, 51%);
+  --background: rgb(247, 247, 247);
+  --textDark: hsla(0, 0%, 0%, 0.66);
+  --textLight: hsla(0, 0%, 0%, 0.33);
+  }
+  body {
+  background: var(--background);
+  height: 100vh;
+  color: var(--textDark);
+  }
+  .field:not(:last-child) {
+  margin-bottom: 1rem;
+  }
+  .register {
+  margin-top: 10rem;
+  background: white;
+  border-radius: 10px;
+  }
+  .left,
+  .right {
+  padding: 4.5rem;
+  }
+  .left {
+  border-right: 5px solid var(--background);
+  }
+  .left .title {
+  font-weight: 800;
+  letter-spacing: -2px;
+  }
+  .left .colored {
+  color: var(--brandColor);
+  font-weight: 500;
+  margin-top: 1rem !important;
+  letter-spacing: -1px;
+  }
+  .left p {
+  color: var(--textLight);
+  font-size: 1.15rem;
+  }
+  .right .title {
+  font-weight: 800;
+  letter-spacing: -1px;
+  }
+  .right .description {
+  margin-top: 1rem;
+  margin-bottom: 1rem !important;
+  color: var(--textLight);
+  font-size: 1.15rem;
+  }
+  .right small {
+  color: var(--textLight);
+  }
+  input {
+  font-size: 1rem;
+  }
+  input:focus {
+  border-color: var(--brandColor) !important;
+  box-shadow: 0 0 0 1px var(--brandColor) !important;
+  }
+  .fab,
+  .fas {
+  color: var(--textLight);
+  margin-right: 1rem;
+  }

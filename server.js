@@ -30,13 +30,18 @@ fastify.register(require("fastify-helmet"), { contentSecurityPolicy: false });
 // Initialize Firebase.
 firebase.initializeApp(firebaseConfig);
 // ------------------------------------------------------
-// Gets the login page.
+// Gets the home page.
 fastify.get("/", async (request, reply) => {
   await reply.view("index.pug");
 });
 
+// Gets login page
+fastify.get("/login", async (request, reply) => {
+  await reply.view("login.pug");
+});
+
 // Authenticates login details.
-fastify.post("/", async (request, reply) => {
+fastify.post("/login", async (request, reply) => {
   const { email, password } = await request.body;
 
   if (firebase.auth().currentUser) {
@@ -50,7 +55,7 @@ fastify.post("/", async (request, reply) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((userCreds) => {
-        reply.send(`Successfully logged in`);
+        reply.redirect("/weather");
       })
       .catch((error) => {
         // Handle errors here.
@@ -68,7 +73,14 @@ fastify.post("/", async (request, reply) => {
 });
 // -----------------------------------------------------------
 fastify.get("/weather", async (request, reply) => {
-  await reply.send("hello from /weather!");
+  const user = firebase.auth().currentUser;
+
+  if (user) {
+    await reply.view("weather.pug");
+    firebase.auth().signOut();
+  } else {
+    await reply.send("Logged out.");
+  }
 });
 // -----------------------------------------------------------
 // Run the server!

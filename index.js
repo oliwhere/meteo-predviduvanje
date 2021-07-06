@@ -3,6 +3,7 @@ const fastify = require("fastify")({ logger: true });
 
 const firebase = require("firebase/app");
 require("firebase/auth");
+// Create an env file and populate the given fields in order firebase to work.
 const firebaseConfig = {
   apiKey: process.env.apiKey,
   authDomain: process.env.authDomain,

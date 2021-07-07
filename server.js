@@ -1,10 +1,9 @@
 // Add required modules.
 require("dotenv").config();
 const fastify = require("fastify")({ logger: true });
-
 const firebase = require("firebase/app");
 require("firebase/auth");
-// Create an env file and populate the given fields in order firebase to work.
+// Take data from env file and populate the given fields in order firebase to work.
 const firebaseConfig = {
   apiKey: process.env.apiKey,
   authDomain: process.env.authDomain,
@@ -71,7 +70,7 @@ fastify.post("/login", async (request, reply) => {
   }
   await reply;
 });
-// -----------------------------------------------------------
+// Gets weather page if logged in.
 fastify.get("/weather", async (request, reply) => {
   const user = firebase.auth().currentUser;
 

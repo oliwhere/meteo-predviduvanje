@@ -29,6 +29,7 @@ fastify.register(require("fastify-helmet"), { contentSecurityPolicy: false });
 // Initialize Firebase.
 firebase.initializeApp(firebaseConfig);
 // ------------------------------------------------------
+
 // Gets the home page.
 fastify.get("/", async (request, reply) => {
   await reply.view("index.pug");
@@ -47,7 +48,9 @@ fastify.post("/login", async (request, reply) => {
     firebase.auth().signOut();
   } else {
     if (password.length < 6) {
-      reply.send("Please enter a password that is at least 6 characters.");
+      reply.view("error.pug", {
+        text: "Please enter a password that is at least 6 characters.",
+      });
     }
     // Sign in with email and pass.
     firebase
@@ -61,15 +64,16 @@ fastify.post("/login", async (request, reply) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         if (errorCode === "auth/wrong-password") {
-          reply.send("Wrong password.");
+          reply.view("error.pug", { text: "Wrong password!" });
         } else {
-          reply.send(errorMessage);
+          reply.view("error.pug", { text: `${errorCode} - ${errorMessage}` });
         }
-        reply.send(error);
+        reply.view("error.pug", { text: error });
       });
   }
   await reply;
 });
+
 // Gets weather page if logged in.
 fastify.get("/weather", async (request, reply) => {
   const user = firebase.auth().currentUser;
@@ -81,11 +85,18 @@ fastify.get("/weather", async (request, reply) => {
     await reply.send("Logged out.");
   }
 });
+
+fastify.get("/error", async (request, reply) => {
+  await reply.view("error.pug", {
+    text: "TEST",
+  });
+});
+
 // -----------------------------------------------------------
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    await fastify.listen(process.env.PORT || 3000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

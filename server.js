@@ -3,7 +3,7 @@ require("dotenv").config();
 const fastify = require("fastify")({ logger: true });
 const firebase = require("firebase/app");
 require("firebase/auth");
-// Take data from env file and populate the given fields in order firebase to work.
+// Take data from env and populate the given fields in order for firebase to work.
 const firebaseConfig = {
   apiKey: process.env.apiKey,
   authDomain: process.env.authDomain,
